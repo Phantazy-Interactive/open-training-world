@@ -27,16 +27,12 @@ const GameCanvas = forwardRef(function GameCanvas({ metrics, segment, otherRider
       if (cancelled || !containerRef.current) return;
 
       const config = {
-        type: Phaser.AUTO,
+        type: Phaser.CANVAS,
         parent: containerRef.current,
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
-        backgroundColor: '#87CEEB',
+        backgroundColor: '#4a6a8a',
         scene: GameScene,
-        physics: {
-          default: 'arcade',
-          arcade: { gravity: { y: 0 }, debug: false },
-        },
         scale: {
           mode: Phaser.Scale.RESIZE,
           autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -44,6 +40,7 @@ const GameCanvas = forwardRef(function GameCanvas({ metrics, segment, otherRider
         render: {
           pixelArt: false,
           antialias: true,
+          transparent: false,
         },
       };
 
@@ -80,7 +77,7 @@ const GameCanvas = forwardRef(function GameCanvas({ metrics, segment, otherRider
     <div
       ref={containerRef}
       className="w-full h-full"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1a5f7a 0%, #87CEEB 60%, #5a8a4a 100%)' }}
     />
   );
 });
