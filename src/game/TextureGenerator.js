@@ -26,6 +26,7 @@ export default class TextureGenerator {
     this.generateSunTexture();
     this.generateBirdTexture();
     this.generateKmMarkerTexture();
+    this.generateWindStreakTexture();
   }
 
   // ─── Sky gradient textures per zone ───
@@ -942,5 +943,21 @@ export default class TextureGenerator {
     ctx.strokeRect(3, 1, 24, 14);
 
     this.scene.textures.addCanvas('km_marker', canvas);
+  }
+
+  // ─── Wind streak (headwind during hard efforts) ───
+  generateWindStreakTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 40;
+    canvas.height = 4;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 2, 40, 2);
+    grad.addColorStop(0, 'rgba(200,220,240,0)');
+    grad.addColorStop(0.3, 'rgba(200,220,240,0.5)');
+    grad.addColorStop(0.7, 'rgba(220,235,250,0.4)');
+    grad.addColorStop(1, 'rgba(200,220,240,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 40, 4);
+    this.scene.textures.addCanvas('wind_streak', canvas);
   }
 }
