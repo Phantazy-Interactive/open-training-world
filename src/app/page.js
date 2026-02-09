@@ -107,14 +107,14 @@ export default function Home() {
           otherRiders={otherRiders}
         />
         {/* Overlay: distance and time */}
-        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg px-4 py-2 flex gap-6 text-sm">
+        <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm rounded-lg px-4 py-2 flex gap-6 text-sm border border-blue-900/30">
           <div>
-            <span className="text-gray-400">Distance</span>
-            <span className="ml-2 font-mono text-lg">{metrics.distance.toFixed(2)} km</span>
+            <span className="text-blue-400/60 text-xs uppercase tracking-wider">Distance</span>
+            <span className="ml-2 font-mono text-lg text-blue-200">{metrics.distance.toFixed(2)} km</span>
           </div>
           <div>
-            <span className="text-gray-400">Time</span>
-            <span className="ml-2 font-mono text-lg">
+            <span className="text-blue-400/60 text-xs uppercase tracking-wider">Time</span>
+            <span className="ml-2 font-mono text-lg text-blue-200">
               {Math.floor(metrics.time_elapsed / 60)}:{(metrics.time_elapsed % 60).toString().padStart(2, '0')}
             </span>
           </div>
@@ -122,10 +122,10 @@ export default function Home() {
       </div>
 
       {/* Right Sidebar */}
-      <div className="w-[380px] flex-shrink-0 bg-gray-800 border-l border-gray-700 flex flex-col overflow-y-auto custom-scrollbar">
-        <div className="p-4 border-b border-gray-700">
+      <div className="w-[380px] flex-shrink-0 bg-gray-900 border-l border-gray-800 flex flex-col overflow-y-auto custom-scrollbar">
+        <div className="p-4 border-b border-gray-800">
           <h1 className="text-xl font-bold text-blue-400">Open Training World</h1>
-          <p className="text-xs text-gray-400 mt-1">Gamified Indoor Cycling Platform</p>
+          <p className="text-xs text-gray-500 mt-1">Space Flight Training Platform</p>
         </div>
 
         <ConnectionPanel

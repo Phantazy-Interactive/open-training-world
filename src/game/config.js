@@ -1,103 +1,86 @@
 export const GAME_CONFIG = {
-  // World is infinite - this only controls chunk generation buffer
   WORLD_HEIGHT: 700,
 
-  // ── Chunk-based terrain generation ──
-  CHUNK_WIDTH: 600,          // each generated terrain chunk is 600px wide
-  GENERATE_AHEAD: 3,         // generate 3 chunks ahead of camera
-  KEEP_BEHIND: 2,            // keep 2 chunks behind camera before recycling
-  ELEVATION_SAMPLE_DIST: 150, // sample new elevation point every 150px of travel
+  // ── Ship ──
+  SHIP_X_RATIO: 0.3,        // ship sits at 30% from left edge
+  SHIP_BASE_Y: 350,         // vertical center
+  SHIP_SCALE: 2.0,
+  SHIP_BOB_AMOUNT: 8,       // gentle vertical float
+  SHIP_BOB_SPEED: 0.8,
 
-  // ── Zones cycle endlessly ──
-  ZONE_WIDTH: 4000,          // each zone lasts 4000px
-  ZONES: [
-    {
-      name: 'Coastal Village',
-      skyTop: [0x1a, 0x5f, 0x7a],
-      skyBot: [0xb8, 0xdb, 0xe8],
-      groundTop: [0x5b, 0x8c, 0x5a],
-      groundBot: [0x3a, 0x5a, 0x3a],
-      treeTypes: ['tree_oak_1', 'tree_birch_1', 'tree_birch_2'],
-      treeDensity: 0.5,
-      hasHouses: true,
-      hasLake: false,
-    },
-    {
-      name: 'Birch Forest',
-      skyTop: [0x2a, 0x6b, 0x3a],
-      skyBot: [0xa8, 0xd8, 0xb0],
-      groundTop: [0x3d, 0x6b, 0x35],
-      groundBot: [0x2a, 0x45, 0x25],
-      treeTypes: ['tree_birch_1', 'tree_birch_2', 'tree_pine_1', 'tree_pine_2'],
-      treeDensity: 0.8,
-      hasHouses: false,
-      hasLake: false,
-    },
-    {
-      name: 'Lake District',
-      skyTop: [0x20, 0x50, 0x80],
-      skyBot: [0xc0, 0xdd, 0xf0],
-      groundTop: [0x50, 0x80, 0x58],
-      groundBot: [0x3a, 0x5a, 0x40],
-      treeTypes: ['tree_pine_1', 'tree_birch_1', 'tree_oak_1'],
-      treeDensity: 0.3,
-      hasHouses: false,
-      hasLake: true,
-    },
-    {
-      name: 'Mountain Pass',
-      skyTop: [0x35, 0x50, 0x70],
-      skyBot: [0xb0, 0xc8, 0xd8],
-      groundTop: [0x6a, 0x78, 0x60],
-      groundBot: [0x4a, 0x55, 0x45],
-      treeTypes: ['tree_pine_2', 'tree_pine_3', 'tree_dead_1'],
-      treeDensity: 0.35,
-      hasHouses: false,
-      hasLake: false,
-    },
-    {
-      name: 'Snow Summit',
-      skyTop: [0x40, 0x55, 0x70],
-      skyBot: [0xd5, 0xe0, 0xea],
-      groundTop: [0x90, 0x98, 0xa0],
-      groundBot: [0x60, 0x68, 0x70],
-      treeTypes: ['tree_snow_1', 'tree_dead_1', 'tree_pine_3'],
-      treeDensity: 0.2,
-      hasHouses: false,
-      hasLake: false,
-    },
-  ],
-
-  // ── Avatar ──
+  // ── Speed / movement ──
   AVATAR_BASE_SPEED: 0.5,
   AVATAR_MAX_SPEED: 8,
   POWER_SPEED_FACTOR: 0.02,
-  CYCLIST_SCALE: 1.8,
 
-  // ── Layout baseline (modified by elevation) ──
-  BASE_ROAD_Y: 510,
-  ROAD_HEIGHT: 14,
-  HORIZON_Y: 300,
-
-  // ── Elevation mapping: FTP % → road Y offset ──
-  // Negative = uphill (road moves up on screen)
-  ELEVATION_MAP: [
-    { ftp: 0,   offset: 50 },   // freewheeling downhill
-    { ftp: 45,  offset: 35 },   // easy recovery downhill
-    { ftp: 55,  offset: 15 },   // light downhill
-    { ftp: 65,  offset: 0 },    // flat road (endurance)
-    { ftp: 80,  offset: -35 },  // rolling hills (tempo)
-    { ftp: 95,  offset: -75 },  // sustained climb (threshold)
-    { ftp: 105, offset: -110 }, // steep climb (VO2max)
-    { ftp: 120, offset: -150 }, // very steep (anaerobic)
-    { ftp: 150, offset: -180 }, // wall (sprint)
+  // ── Star layers ──
+  STAR_LAYERS: [
+    { count: 120, speed: 0.15, sizeMin: 0.5, sizeMax: 1.2, alpha: 0.3 },  // far
+    { count: 80,  speed: 0.4,  sizeMin: 0.8, sizeMax: 2.0, alpha: 0.5 },  // mid
+    { count: 50,  speed: 0.8,  sizeMin: 1.0, sizeMax: 2.5, alpha: 0.7 },  // near
   ],
 
-  // ── Parallax speeds ──
-  PARALLAX_FAR: 0.15,
-  PARALLAX_MID: 0.4,
-  PARALLAX_NEAR: 0.7,
+  // ── Space zones (cycle endlessly) ──
+  ZONE_WIDTH: 5000,
+  ZONES: [
+    {
+      name: 'Deep Space',
+      bgTop: [0x04, 0x06, 0x18],     // near black
+      bgBot: [0x0c, 0x14, 0x32],     // dark blue
+      nebulaColor: 'rgba(60,80,180,0.06)',
+      nebulaAccent: 'rgba(100,60,200,0.04)',
+      ambientParticle: 'particle_blue',
+    },
+    {
+      name: 'Sapphire Nebula',
+      bgTop: [0x08, 0x0a, 0x24],
+      bgBot: [0x14, 0x1e, 0x48],
+      nebulaColor: 'rgba(40,100,220,0.1)',
+      nebulaAccent: 'rgba(120,40,200,0.08)',
+      ambientParticle: 'particle_purple',
+    },
+    {
+      name: 'Ember Drift',
+      bgTop: [0x12, 0x06, 0x04],
+      bgBot: [0x30, 0x14, 0x0c],
+      nebulaColor: 'rgba(220,100,40,0.08)',
+      nebulaAccent: 'rgba(200,60,80,0.06)',
+      ambientParticle: 'particle_orange',
+    },
+    {
+      name: 'Aurora Passage',
+      bgTop: [0x04, 0x12, 0x10],
+      bgBot: [0x0c, 0x2a, 0x28],
+      nebulaColor: 'rgba(40,200,160,0.08)',
+      nebulaAccent: 'rgba(60,120,220,0.06)',
+      ambientParticle: 'particle_cyan',
+    },
+    {
+      name: 'Void Rift',
+      bgTop: [0x0a, 0x04, 0x14],
+      bgBot: [0x1e, 0x0c, 0x30],
+      nebulaColor: 'rgba(160,40,220,0.1)',
+      nebulaAccent: 'rgba(220,40,120,0.07)',
+      ambientParticle: 'particle_pink',
+    },
+  ],
 
-  // Deterministic seed for consistent random patterns within chunks
-  SEED: 42,
+  // ── Effort → environment intensity ──
+  // Higher FTP% = more asteroids, screen effects, visual intensity
+  EFFORT_THRESHOLDS: {
+    calm:      55,   // below this: serene open space
+    moderate:  75,   // gentle obstacles
+    hard:      95,   // asteroid field
+    intense:   110,  // dense field + screen tint
+    maximum:   130,  // warp-like tunnel effect
+  },
+
+  // ── Asteroid generation ──
+  ASTEROID_SPAWN_BASE: 0.005,    // base chance per frame at moderate effort
+  ASTEROID_SPAWN_SCALE: 0.003,   // additional chance per 10% FTP above moderate
+
+  // ── Chunk system (for spawning objects) ──
+  CHUNK_WIDTH: 600,
+  GENERATE_AHEAD: 3,
+  KEEP_BEHIND: 2,
 };

@@ -31,7 +31,7 @@ const GameCanvas = forwardRef(function GameCanvas({ metrics, segment, otherRider
         parent: containerRef.current,
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight,
-        backgroundColor: '#4a6a8a',
+        backgroundColor: '#040618',
         scene: GameScene,
         scale: {
           mode: Phaser.Scale.RESIZE,
@@ -77,7 +77,7 @@ const GameCanvas = forwardRef(function GameCanvas({ metrics, segment, otherRider
     <div
       ref={containerRef}
       className="w-full h-full"
-      style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #1a5f7a 0%, #87CEEB 60%, #5a8a4a 100%)' }}
+      style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #040618 0%, #0c1432 100%)' }}
     />
   );
 });
